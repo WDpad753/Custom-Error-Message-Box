@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:CustomErrorMessageBox"
         mc:Ignorable="d"
-        Width="450"
+        Height="Auto" Width="450"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen"
         MouseMove="Window_MouseMove" MouseUp="Window_MouseUp" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
@@ -48,7 +48,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <!--<RowDefinition Height="Auto"/>-->
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -74,7 +74,7 @@
                                     <TextBlock VerticalAlignment="Center">Error Message</TextBlock>
                                 </DockPanel>
                             </Expander.Header>
-                            <TextBlock x:Name="txtBlkErrorMessage" Background="White" Margin="0,5,0,5"/>
+                            <TextBlock x:Name="txtBlkErrorMessage" Background="White" Margin="0,5,0,0"/>
                         </Expander>
                     </Grid>
 
@@ -83,10 +83,22 @@
                             <Expander.Header>
                                 <DockPanel VerticalAlignment="Stretch">
                                     <materialDesign:PackIcon Kind="Error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left" />
+                                    <TextBlock VerticalAlignment="Center">Error Source</TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+                            <TextBlock x:Name="txtBlkErrorSource" Background="White" Margin="0,5,0,0"/>
+                        </Expander>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Expander Style="{DynamicResource CustomExpanderStyle}" Background="{Binding Background, ElementName=BoxHeader}" Foreground="Black" Opacity="0.7" BorderThickness="1" BorderBrush="Black" Margin="7,15">
+                            <Expander.Header>
+                                <DockPanel VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left" />
                                     <TextBlock VerticalAlignment="Center">Error CallStack</TextBlock>
                                 </DockPanel>
                             </Expander.Header>
-                            <TextBlock x:Name="txtBlkErrorCallStack" Background="White" Margin="0,5,0,5"/>
+                            <TextBlock x:Name="txtBlkErrorCallStack" Background="White" Margin="0,5,0,0"/>
                         </Expander>
                     </Grid>
 

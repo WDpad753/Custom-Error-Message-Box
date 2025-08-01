@@ -36,7 +36,7 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             InitializeComponent();
         }
 
-        public void Show(Exception ex)
+        public void Show(string message, Exception ex)
         {
             var buttons = new List<DialogButtons>()
             {
@@ -44,7 +44,8 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             };
 
             errorMessageBox = new BaseErrorMessageBox();
-            errorMessageBox.txtBlkErrorMessage.Text = ex.Message;
+            errorMessageBox.txtBlkErrorMessage.Text = $"{message};{ex.Message}";
+            errorMessageBox.txtBlkErrorSource.Text = ex.Source;
             errorMessageBox.txtBlkErrorCallStack.Text = ex.StackTrace;
             errorMessageBox.txtTitle.Text = errorMessageBox.GetTitle(DialogTitle.Error);
 
