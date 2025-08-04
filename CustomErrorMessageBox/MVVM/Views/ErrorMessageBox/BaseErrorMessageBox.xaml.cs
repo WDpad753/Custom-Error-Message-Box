@@ -4,6 +4,7 @@ using CustomErrorMessageBox.Styles.UICommands.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,8 +29,9 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
         private bool draggingPopup = false;
         private Point initialMousePosition;
         private Point startDragPoint;
-        static BaseErrorMessageBox? errorMessageBox;
-        static DialogResults result = DialogResults.No;
+        //static BaseErrorMessageBox? errorMessageBox;
+        private DialogResults _result = DialogResults.No;
+        public DialogResults Result => _result;
 
         public BaseErrorMessageBox()
         {
@@ -43,14 +45,13 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
                 DialogButtons.Ok
             };
 
-            errorMessageBox = new BaseErrorMessageBox();
-            errorMessageBox.txtBlkErrorMessage.Text = $"{message};{ex.Message}";
-            errorMessageBox.txtBlkErrorSource.Text = ex.Source;
-            errorMessageBox.txtBlkErrorCallStack.Text = ex.StackTrace;
-            errorMessageBox.txtTitle.Text = errorMessageBox.GetTitle(DialogTitle.Error);
+            txtBlkErrorMessage.Text = $"{message};{ex.Message}";
+            txtBlkErrorSource.Text = ex.Source;
+            txtBlkErrorCallStack.Text = ex.StackTrace;
+            txtTitle.Text = GetTitle(DialogTitle.Error);
 
             // Clear any existing buttons (if reused)
-            errorMessageBox.ButtonsPanel.Children.Clear();
+            ButtonsPanel.Children.Clear();
 
             // Adding buttons based on the params list:
             foreach (var button in buttons)
@@ -59,10 +60,10 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
                 AddButton(buttonText, button);         // Add the button to the custom message box
             }
 
-            errorMessageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Error;
-            errorMessageBox.iconMsg.Foreground = Brushes.DarkRed;
+            iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Error;
+            iconMsg.Foreground = Brushes.DarkRed;
 
-            errorMessageBox.ShowDialog(); // Use ShowDialog to show the window
+            this.ShowDialog(); // Use ShowDialog to show the window
         }
 
         private string GetTitle(DialogTitle value)
@@ -70,12 +71,12 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             return Enum.GetName(typeof(DialogTitle), value);
         }
 
-        private static string GetButton(DialogButtons value)
+        private string GetButton(DialogButtons value)
         {
             return Enum.GetName(typeof(DialogButtons), value);
         }
 
-        private static void AddButton(string buttonText, DialogButtons dialogButton)
+        private void AddButton(string buttonText, DialogButtons dialogButton)
         {
             // Create the button
             var button = new RoundButton
@@ -157,7 +158,7 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             // Set the click event to set the result and close the dialog
             button.Click += (sender, e) =>
             {
-                result = dialogButton switch
+                _result = dialogButton switch
                 {
                     DialogButtons.Yes => DialogResults.Yes,
                     DialogButtons.No => DialogResults.No,
@@ -166,11 +167,11 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
                     _ => DialogResults.None
                 };
 
-                errorMessageBox?.Close();
+                this.Close();
             };
 
             // Add the button to the ButtonsPanel
-            errorMessageBox?.ButtonsPanel.Children.Add(button);
+            ButtonsPanel.Children.Add(button);
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
