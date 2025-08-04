@@ -64,6 +64,8 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             iconMsg.Foreground = Brushes.DarkRed;
 
             this.ShowDialog(); // Use ShowDialog to show the window
+
+            return;
         }
 
         private string GetTitle(DialogTitle value)
