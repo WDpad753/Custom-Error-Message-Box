@@ -36,7 +36,7 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             InitializeComponent();
         }
 
-        public void ShowErrorMsg(string message, Exception ex)
+        public void Show(string message, Exception ex)
         {
             var buttons = new List<DialogButtons>()
             {
