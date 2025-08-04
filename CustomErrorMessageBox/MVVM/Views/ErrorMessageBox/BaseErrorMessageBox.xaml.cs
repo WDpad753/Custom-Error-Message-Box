@@ -1,4 +1,4 @@
-﻿using CustomErrorMessageBox.MVVM.Models;
+using CustomErrorMessageBox.MVVM.Models;
 using CustomErrorMessageBox.MVVM.Views.ErrorMessageBox;
 using CustomErrorMessageBox.Styles.UICommands.Buttons;
 using System;
@@ -36,7 +36,7 @@ namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
             InitializeComponent();
         }
 
-        public void Show(string message, Exception ex)
+        public void ShowError(string message, Exception ex)
         {
             var buttons = new List<DialogButtons>()
             {
